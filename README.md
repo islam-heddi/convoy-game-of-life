@@ -1,4 +1,4 @@
-# Convoy game of life
+# Conwoy game of life
 
 # What is Conway's Game of Life?
 Conway's Game of Life is a cellular automaton that is played on a 2D square grid. Each square (or "cell") on the grid can be either alive or dead, and they evolve according to the following rules:
