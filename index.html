@@ -68,7 +68,7 @@
                 return Array(this.rows).fill().map(() => Array(this.cols).fill(false));
             }
 
-            randomize() { // this will randomize the black cells that define the movement cell
+            randomize() { // this will randomize the alive cells
                 this.grid = this.grid.map(row => 
                     row.map(() => Math.random() > 0.85)
                 );
@@ -87,7 +87,7 @@
                     [14, 9], [15, 9]
                 ] // this draws glidergun
 
-                metrix.forEach(([x, y]) => { // this will apply the draw of glider gun
+                metrix.forEach(([x, y]) => { // this will apply the draw of glider gun cells
                     this.grid[y][x] = true;
                 });
             }
@@ -105,9 +105,9 @@
                     [11,2],[11,7],[11,9],[11,14],
                     [13,4],[13,5],[13,6],[13,10],[13,12],[13,11],
                     
-                ] // this draw the pulsar 
+                ] // this draw the pulsar cells
 
-                metrix.forEach(([x, y]) => { //this apply the pulsar draw
+                metrix.forEach(([x, y]) => { //this apply the pulsar cell draw
                     this.grid[y][x] = true;
                 });
             }
@@ -117,14 +117,14 @@
                         [3,5],[8,5],
                     [1,6],[2,6],[4,6],[5,6],[6,6],[7,6],[9,6],[10,6],
                         [3,7],[8,7]
-                ] // this draw the pentadecathlon
+                ] // this draw the pentadecathlon cell
 
-                metrix.forEach(([x, y]) => { //this apply the pentadecathlon
+                metrix.forEach(([x, y]) => { //this apply the pentadecathlon cell draw
                     this.grid[y][x] = true;
                 });
             }
 
-            countNeighbors(x, y) { // this count how many cells are neighbours of a given cell
+            countNeighbors(x, y) { // this count how many cells alive are neighbours of a given cell
                 let count = 0;
                 for (let dy = -1; dy <= 1; dy++) {
                     for (let dx = -1; dx <= 1; dx++) {
@@ -179,7 +179,7 @@
         }
 
         // Initialize Game
-        document.addEventListener('DOMContentLoaded', () => { // this called when DOMCONTENTLOADED that means when all the html tags loaded it start to call
+        document.addEventListener('DOMContentLoaded', () => { // this called when DOMCONTENTLOADED that means when all the html tags loaded it starts to call
             const game = new Game(180, 360, 5); // this initialize the game
             const canvas = document.getElementById('gridCanvas'); // this initialize the canva
             const renderer = new Renderer(canvas, game); // this instanctiate the renderer object
