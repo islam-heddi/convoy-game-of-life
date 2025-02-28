@@ -44,8 +44,8 @@
     <canvas id="gridCanvas"></canvas>
 
     <script>
-        class Game {
-            constructor(rows, cols, cellSize) {
+        class Game {  // this class defines the functionality of the game
+            constructor(rows, cols, cellSize) { // this constructer intialize the attributes
                 this.rows = rows;
                 this.cols = cols;
                 this.cellSize = cellSize;
@@ -53,11 +53,11 @@
                 this.isRunning = false;
             }
 
-            createEmptyGrid() {
+            createEmptyGrid() { // this method initialize the grid of the canva
                 return Array(this.rows).fill().map(() => Array(this.cols).fill(false));
             }
 
-            randomize() {
+            randomize() { // this will randomize the black points that define the movement point
                 this.grid = this.grid.map(row => 
                     row.map(() => Math.random() > 0.85)
                 );
@@ -75,9 +75,9 @@
                     [12, 7], [18, 7], [26, 7],
                     [13, 8], [17, 8],
                     [14, 9], [15, 9]
-                ]
+                ] // this draws glidergun
 
-                metrix.forEach(([x, y]) => {
+                metrix.forEach(([x, y]) => { // this will apply the draw of glider gun
                     this.grid[y][x] = true;
                 });
             }
@@ -96,31 +96,27 @@
                     [11,2],[11,7],[11,9],[11,14],
                     [13,4],[13,5],[13,6],[13,10],[13,12],[13,11],
                     
-                ]
+                ] // this draw the pulsar 
 
-                metrix.forEach(([x, y]) => {
+                metrix.forEach(([x, y]) => { //this apply the pulsar draw
                     this.grid[y][x] = true;
                 });
             }
 
             drawPentaDecathlon() {
                 // Write your function here
-                const metrix = [
-                   /*     [5,3],[5,8],
-                    [6,1],[6,2],[6,4],[6,5],[6,6],[6,7],[6,9],[6,10],
-                        [7,3],[7,8],*/
-                        
+                const metrix = [ 
                         [3,5],[8,5],
                     [1,6],[2,6],[4,6],[5,6],[6,6],[7,6],[9,6],[10,6],
                         [3,7],[8,7]
-                ]
+                ] // this draw the pentadecathlon
 
-                metrix.forEach(([x, y]) => {
+                metrix.forEach(([x, y]) => { //this apply the pentadecathlon
                     this.grid[y][x] = true;
                 });
             }
 
-            countNeighbors(x, y) {
+            countNeighbors(x, y) { // this count how many points are neighbours of a given point
                 let count = 0;
                 for (let dy = -1; dy <= 1; dy++) {
                     for (let dx = -1; dx <= 1; dx++) {
@@ -133,7 +129,7 @@
                 return count;
             }
 
-            update() {
+            update() { // this will update the grid
                 const newGrid = this.createEmptyGrid();
                 for (let y = 0; y < this.rows; y++) {
                     for (let x = 0; x < this.cols; x++) {
@@ -147,8 +143,8 @@
             }
         }
 
-        class Renderer {
-            constructor(canvas, game) {
+        class Renderer {  // this class renders the game
+            constructor(canvas, game) { // the constructor initialize this class
                 this.canvas = canvas;
                 this.ctx = canvas.getContext('2d');
                 this.game = game;
@@ -156,7 +152,7 @@
                 canvas.height = game.rows * game.cellSize;
             }
 
-            draw() {
+            draw() { /// this method draw the grid of the canva
                 this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
                 for (let y = 0; y < this.game.rows; y++) {
                     for (let x = 0; x < this.game.cols; x++) {
@@ -175,51 +171,52 @@
         }
 
         // Initialize Game
-        document.addEventListener('DOMContentLoaded', () => {
-            const game = new Game(180, 360, 5);
-            const canvas = document.getElementById('gridCanvas');
-            const renderer = new Renderer(canvas, game);
-            let intervalId = null;
+        document.addEventListener('DOMContentLoaded', () => { // this called when DOMCONTENTLOADED that means when all the html tags loaded it start to call
+            const game = new Game(180, 360, 5); // this initialize the game
+            const canvas = document.getElementById('gridCanvas'); // this initialize the canva
+            const renderer = new Renderer(canvas, game); // this instanctiate the renderer object
+            let intervalId = null; // decalared a variable interval
 
             // Button Event Handlers
-            document.getElementById('startBtn').addEventListener('click', () => {
-                game.isRunning = !game.isRunning;
+            document.getElementById('startBtn').addEventListener('click', () => { // the user click start buttton
+                game.isRunning = !game.isRunning; // this will change the boolean to the opposite value
                 document.getElementById('startBtn').textContent = 
-                    game.isRunning ? 'Stop' : 'Start';
+                    game.isRunning ? 'Stop' : 'Start'; // when the game is running change the name of the start button to stop otherwise return it to start
                 if (game.isRunning) {
                     intervalId = setInterval(() => {
                         game.update();
                         renderer.draw();
-                    }, 1);
+                    }, 1); // since the game is running update the game and the render the draw
                 } else {
-                    clearInterval(intervalId);
+                    clearInterval(intervalId); // since the game stop running clear interval
                 }
             });
 
-            document.getElementById('clearBtn').addEventListener('click', () => {
-                game.grid = game.createEmptyGrid();
-                renderer.draw();
+            document.getElementById('clearBtn').addEventListener('click', () => { // user clicks the clear button
+                game.grid = game.createEmptyGrid(); // made the grid empty
+                renderer.draw(); // redraw
             });
 
             document.getElementById('randomBtn').addEventListener('click', () => {
                 game.randomize();
                 renderer.draw();
-            });
+            }); // when the user clicks random button randomize the position of the points and then draw it
 
             document.getElementById('gliderGunBtn').addEventListener('click', () => {
                 game.drawGliderGun();
                 renderer.draw();
-            });
+            }); // when the user clicks random button put the position of the points as glider gun and then draw it
 
             document.getElementById('pulsarBtn').addEventListener('click', () => {
                 game.drawPulsar();
                 renderer.draw();
-            });
+            }); // when the user clicks random button put the position of the points as pulsar and then draw it
+
 
             document.getElementById('pentaDecathlonBtn').addEventListener('click', () => {
                 game.drawPentaDecathlon();
                 renderer.draw();
-            });
+            }); // when the user clicks random button put the position of the points as penta decathlon and then draw it
 
             // Initial Draw
             renderer.draw();
