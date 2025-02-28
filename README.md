@@ -35,6 +35,7 @@ here is diagram class
                                 grid
                                 isRunning
                             ------------------------
+                            Game(rows, cols, cellSize)
                                 createEmptyGrid()
                                 randomize()
                                 drawGliderGun()
@@ -42,4 +43,16 @@ here is diagram class
                                 drawPentaDecathlon()
                                 countNeighbors(x, y)
                                 update()
+                            --------------------------
+
+
+                            --------------------------
+                                    Renderer
+                            --------------------------
+                                    canvas
+                                    ctx
+                                    game
+                            ------------------------
+                            Render(canvas, game)
+                            draw()
                             --------------------------
