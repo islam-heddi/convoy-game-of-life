@@ -28,7 +28,7 @@
         button {
             padding: 8px 16px;
             margin-right: 5px;
-            cursor: pointer;
+            cursor: celler;
         }
     </style>
 </head>
@@ -57,14 +57,13 @@
                 return Array(this.rows).fill().map(() => Array(this.cols).fill(false));
             }
 
-            randomize() { // this will randomize the black points that define the movement point
+            randomize() { // this will randomize the black cells that define the movement cell
                 this.grid = this.grid.map(row => 
                     row.map(() => Math.random() > 0.85)
                 );
             }
 
             drawGliderGun() {
-                // Write your function here
                 const metrix = [
                     [26, 1],
                     [24, 2], [26, 2],
@@ -83,7 +82,6 @@
             }
 
             drawPulsar() {
-                // Write your function here
             const metrix = [
                     [1,4],[1,5],[1,6],[1,10],[1,12],[1,11],
                     [3,2],[3,7],[3,9],[3,14],
@@ -104,7 +102,6 @@
             }
 
             drawPentaDecathlon() {
-                // Write your function here
                 const metrix = [ 
                         [3,5],[8,5],
                     [1,6],[2,6],[4,6],[5,6],[6,6],[7,6],[9,6],[10,6],
@@ -116,7 +113,7 @@
                 });
             }
 
-            countNeighbors(x, y) { // this count how many points are neighbours of a given point
+            countNeighbors(x, y) { // this count how many cells are neighbours of a given cell
                 let count = 0;
                 for (let dy = -1; dy <= 1; dy++) {
                     for (let dx = -1; dx <= 1; dx++) {
@@ -200,23 +197,23 @@
             document.getElementById('randomBtn').addEventListener('click', () => {
                 game.randomize();
                 renderer.draw();
-            }); // when the user clicks random button randomize the position of the points and then draw it
+            }); // when the user clicks random button randomize the position of the cells and then draw it
 
             document.getElementById('gliderGunBtn').addEventListener('click', () => {
                 game.drawGliderGun();
                 renderer.draw();
-            }); // when the user clicks random button put the position of the points as glider gun and then draw it
+            }); // when the user clicks random button put the position of the cells as glider gun and then draw it
 
             document.getElementById('pulsarBtn').addEventListener('click', () => {
                 game.drawPulsar();
                 renderer.draw();
-            }); // when the user clicks random button put the position of the points as pulsar and then draw it
+            }); // when the user clicks random button put the position of the cells as pulsar and then draw it
 
 
             document.getElementById('pentaDecathlonBtn').addEventListener('click', () => {
                 game.drawPentaDecathlon();
                 renderer.draw();
-            }); // when the user clicks random button put the position of the points as penta decathlon and then draw it
+            }); // when the user clicks random button put the position of the cells as penta decathlon and then draw it
 
             // Initial Draw
             renderer.draw();
